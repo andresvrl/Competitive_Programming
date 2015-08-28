@@ -1,11 +1,11 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-#include <map>
+#include <unordered_map>
 
 using namespace std;
 
-map<string, int> dp;
+unordered_map<string, int> dp;
 
 int fac(string s){
 	if (s.size() <= 1) return s.size();
