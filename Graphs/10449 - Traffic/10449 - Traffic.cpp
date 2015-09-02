@@ -39,7 +39,6 @@ int main(){
 			}
 		}
 
-		vi cyc(n, 0);
 		relaxed = true;
 		for (int i = 0; i < n - 1 && relaxed; ++i){
 			relaxed = false;
@@ -58,7 +57,7 @@ int main(){
 		for (int i = 0; i < q; ++i){
 			cin >> tmp;
 			tmp--;
-			if (cyc[tmp] || dist[tmp] < 3 || dist[tmp] > 10000000) cout << "?" << endl;
+			if (dist[tmp] < 3 || dist[tmp] > 10000000) cout << "?" << endl;
 			else cout << dist[tmp] << endl;
 		}
 	}
