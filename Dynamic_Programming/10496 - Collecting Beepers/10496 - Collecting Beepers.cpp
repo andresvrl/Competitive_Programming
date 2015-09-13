@@ -8,8 +8,8 @@ typedef pair<int, int> ii;
 
 int all;
 int am[15][15];
-int dp[1 << 11][11];
-int dp2[1 << 11][11];
+int dp[1 << 12][11];
+int dp2[1 << 12][11];
 int dpnum;
 int tc, sizex, sizey, karelx, karely, numbeep, beepx, beepy;
 
