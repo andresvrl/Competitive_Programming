@@ -56,7 +56,6 @@ vector<ii> LCS() {                 // returns a vector of pair (the LCS length a
 	vector<int> owner_count(numlife + 1, 0);
 	vector<ii> res;
 	for (int L = 1, R = 1; R < n; R++) {
-		
 		len = 0;
 		if (++owner_count[owner[SA[R]]] == 1){
 			distinct++;
