@@ -22,6 +22,7 @@ int main(){
 	int tc = 1;
 	int n, m;
 	while (cin >> n){
+		cout << "Case " << tc++ << ":" << endl;
 		string s;
 		dict.clear();
 		for (int i = 0; i < n; i++){
