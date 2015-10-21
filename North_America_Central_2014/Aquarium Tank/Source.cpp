@@ -11,7 +11,6 @@ typedef pair<double, double> dd;
 
 struct line { double a, b, c; };          // a way to represent a line
 
-// the answer is stored in the third parameter (pass by reference)
 // ax + by + c = 0
 void pointsToLine(dd p1, dd p2, line &l) {
 	if (fabs(p1.first - p2.first) < EPS) {              // vertical line is fine
@@ -38,23 +37,13 @@ double area(const vector<dd> &P) {
 	return fabs(result) / 2.0;
 }
 
-template<typename P> struct cmp
 
-{
-
-	bool operator()(const P &p1, const P &p2)
-
+bool cmp(const dd &p1, const dd &p2)
 	{
-
 		if (p1.second < p2.second) return true;
-
 		if (p1.second == p2.second) return p1.first > p2.first;
-
 		return false;
-
 	}
-
-};
 
 bool isLeft(dd a, dd b, dd c){
 	return ((b.first - a.first)*(c.second - a.second) - (b.second - a.second)*(c.first - a.first)) > 0;
@@ -115,8 +104,8 @@ int main(){
 				left.push_back(p[i]);
 			else right.push_back(p[i]);
 		}
-		sort(left.begin(), left.end(), cmp<dd>());
-		sort(right.begin(), right.end(), cmp<dd>());
+		sort(left.begin(), left.end(), cmp);
+		sort(right.begin(), right.end(), cmp);
 		//for (auto i : left) cout << i.first << " " << i.second << " | ";
 		//cout << endl; for (auto i : right) cout << i.first << " " << i.second << " | ";
 		vector<dd> all(left);
