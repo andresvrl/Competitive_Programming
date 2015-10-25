@@ -3,10 +3,12 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
-#include <set>
+#include <functional>
+#include <queue>
 
 using namespace std;
 typedef pair<int, int> ii;
+typedef pair<int, ii> iii;
 
 int grid[1005][1005];
 int x, y, t, l, w;
@@ -16,17 +18,17 @@ int dy[] = { 0, 1, 0, -1 };
 
 
 bool valid(int i, int j, int time){
-	return (i >= 0 && i < y && j >= 0 && j < x && (grid[i][j] == 0 || grid[i][j] > time));
+	return (time <= t && i >= 0 && i < y && j >= 0 && j < x && (grid[i][j] == 0 || grid[i][j] > time));
 }
 
 int main(){
 	while (cin >> x >> y >> t >> l >> w && x){
 		memset(grid, 0, sizeof grid);
 		int row1, row2, col1, col2;
-		set<ii> leaks;
+		priority_queue<iii, vector<iii>, greater<iii>> leaks;
 		for (int i = 0; i < l; i++){
 			cin >> col1 >> row1;
-			leaks.insert(ii(row1 - 1, col1 - 1));
+			leaks.push(iii(1,ii(row1 - 1, col1 - 1)));
 		}
 		for (int i = 0; i < w; i++){
 			cin >> col1 >> row1 >> col2 >> row2;
@@ -41,18 +43,19 @@ int main(){
 			
 		}
 		int ans = 0;
-		for (int i = 1; i <= t; i++){
-			set<ii> nextLeaks;
-			for (auto &leak : leaks){
-				if (!grid[leak.first][leak.second]) ans++;
-				grid[leak.first][leak.second] = i;
-				for (int j = 0; j < 4; j++){
-					if (valid(leak.first + dy[j], leak.second + dx[j], i + 1)){
-						nextLeaks.insert(ii(leak.first + dy[j], leak.second + dx[j]));
-					}
+		while (!leaks.empty()){
+			iii f = leaks.top();
+			leaks.pop();
+			int time = f.first;
+			int row = f.second.first;
+			int col = f.second.second;
+			ans++;
+			grid[row][col] = time;
+			for (int j = 0; j < 4; j++){
+				if (valid(row + dy[j], col + dx[j], time + 1)){
+					leaks.push(iii(time + 1, ii(row + dy[j], col + dx[j])));
 				}
 			}
-			leaks = nextLeaks;
 		}
 		cout << ans << endl;
 	}
