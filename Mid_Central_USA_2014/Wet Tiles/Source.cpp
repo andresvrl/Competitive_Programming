@@ -3,7 +3,6 @@
 #include <vector>
 #include <cmath>
 #include <algorithm>
-#include <functional>
 #include <queue>
 
 using namespace std;
@@ -25,7 +24,7 @@ int main(){
 	while (cin >> x >> y >> t >> l >> w && x){
 		memset(grid, 0, sizeof grid);
 		int row1, row2, col1, col2;
-		priority_queue<iii, vector<iii>, greater<iii>> leaks;
+		queue<iii> leaks;
 		for (int i = 0; i < l; i++){
 			cin >> col1 >> row1;
 			leaks.push(iii(1,ii(row1 - 1, col1 - 1)));
@@ -44,12 +43,13 @@ int main(){
 		}
 		int ans = 0;
 		while (!leaks.empty()){
-			iii f = leaks.top();
+			iii f = leaks.front();
 			leaks.pop();
 			int time = f.first;
 			int row = f.second.first;
 			int col = f.second.second;
-			ans++;
+			if (!grid[row][col]) ans++;
+			else if (grid[row][col] <= time) continue;
 			grid[row][col] = time;
 			for (int j = 0; j < 4; j++){
 				if (valid(row + dy[j], col + dx[j], time + 1)){
